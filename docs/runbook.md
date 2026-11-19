@@ -4,7 +4,7 @@
 
 ```bash
 python3.12 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate          # Windows: .venvScriptsctivate
 pip install -r requirements-dev.txt
 uvicorn app.main:app --reload --port 8000
 ```
