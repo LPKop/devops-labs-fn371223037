@@ -22,4 +22,4 @@
 - Keep the history linear: merge with **Squash and merge** or **Rebase and merge**. / Историята е линейна.
 - Resolve conflicts locally on your branch, not in `main`. / Конфликтите се решават локално в клона.
 
-Branching strategy: TBD
+Branching strategy: GitHub Flow, because one long-lived `main` plus short feature branches and PRs is enough for a small team that releases often.
