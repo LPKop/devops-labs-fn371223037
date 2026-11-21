@@ -38,6 +38,41 @@ docker stop notes-api
 docker rm notes-api
 ```
 
+## Run with Compose / Стартиране с Compose
+
+The app and PostgreSQL together. The passwords are in `.env`, which is not in git. / Приложението и PostgreSQL заедно. Паролите са в `.env`, който не е в git.
+
+```bash
+cp .env.example .env               # set a real POSTGRES_PASSWORD / сложете истинска парола
+docker compose up -d --build
+docker compose ps                  # db must be (healthy) / db трябва да е (healthy)
+curl http://127.0.0.1:8000/ready   # {"status":"ready"}
+```
+
+Logs / Логове:
+
+```bash
+docker compose logs -f app         # Ctrl+C to leave / Ctrl+C за изход
+docker compose logs db
+```
+
+Adminer for a look at the database (only with the `tools` profile) / Adminer за преглед на базата (само с профила `tools`):
+
+```bash
+docker compose --profile tools up -d
+```
+
+Then open port 8081: system PostgreSQL, server `db`, user and password from `.env`. / После порт 8081: PostgreSQL, сървър `db`, потребител и парола от `.env`.
+
+Stop / Спиране:
+
+```bash
+docker compose down                # stops and removes the containers, the notes stay in the volume
+docker compose down -v             # also removes the volume db-data: all notes are lost
+```
+
+`down` keeps the named volume `db-data`, so the notes are there after the next `up -d`. `down -v` deletes it and the database starts empty. / `down` запазва volume-а `db-data` и бележките остават. `down -v` го изтрива и базата започва празна.
+
 ## Check that it works / Проверка, че работи
 
 ```bash
