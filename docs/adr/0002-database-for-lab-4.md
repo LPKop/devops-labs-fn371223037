@@ -16,6 +16,8 @@ Without `DATABASE_URL` the notes live in memory and are lost on every restart. F
 
 We use PostgreSQL, connected through `DATABASE_URL=postgresql://notes:secret@db:5432/notes`. / Използваме PostgreSQL чрез `DATABASE_URL`.
 
+Lab 4 confirms it: `compose.yaml` runs `postgres:17-alpine` as the service `db` with a named volume `db-data`, and the app starts only when `pg_isready` passes. The credentials are in `.env` (not in git); `.env.example` is the template. / Упражнение 4 го потвърждава: `compose.yaml` пуска `postgres:17-alpine` като услуга `db` с volume `db-data`, а приложението тръгва чак когато `pg_isready` мине. Данните за достъп са в `.env` (не е в git).
+
 ## Consequences / Последствия
 
 - Notes survive restarts and are the same on every instance. / Бележките се запазват и са еднакви навсякъде.
