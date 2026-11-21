@@ -9,6 +9,35 @@ pip install -r requirements-dev.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
+## Run with Docker / Стартиране с Docker
+
+Build the image / Изграждане на образа:
+
+```bash
+docker build -t notes-api:0.3.0 .
+```
+
+Run it in the background on port 8000 / Стартиране във фонов режим на порт 8000:
+
+```bash
+docker run -d --name notes-api -p 8000:8000 -e APP_VERSION=0.3.0 notes-api:0.3.0
+curl http://127.0.0.1:8000/health
+docker inspect --format '{{.State.Health.Status}}' notes-api   # healthy
+```
+
+Logs / Логове:
+
+```bash
+docker logs -f notes-api        # Ctrl+C to leave / Ctrl+C за изход
+```
+
+Stop and remove / Спиране и изтриване:
+
+```bash
+docker stop notes-api
+docker rm notes-api
+```
+
 ## Check that it works / Проверка, че работи
 
 ```bash
