@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.0
+
+- Dockerfile: `python:3.12-slim`, cached pip layer, `.dockerignore`, non-root user and a healthcheck.
+- `compose.yaml`: the app with PostgreSQL 17, a named volume and a healthcheck; Adminer under the `tools` profile.
+- `.env.example` for the database credentials.
+- Runbook: "Run with Docker" and "Run with Compose".
+
 ## 0.2.0
 
 - Service documentation: purpose, endpoints and dependencies.
