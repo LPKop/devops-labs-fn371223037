@@ -1,6 +1,7 @@
 # Notes API: учебно приложение за курса по DevOps
 
 [![CI](https://github.com/LPKop/devops-labs-fn371223037/actions/workflows/ci.yml/badge.svg)](https://github.com/LPKop/devops-labs-fn371223037/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-site-blue)](https://lpkop.github.io/devops-labs-fn371223037/)
 
 **Български** · [English](#notes-api--devops-course-starter-app)
 
