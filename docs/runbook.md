@@ -73,6 +73,31 @@ docker compose down -v             # also removes the volume db-data: all notes 
 
 `down` keeps the named volume `db-data`, so the notes are there after the next `up -d`. `down -v` deletes it and the database starts empty. / `down` запазва volume-а `db-data` и бележките остават. `down -v` го изтрива и базата започва празна.
 
+## Release and rollback / Издаване и връщане назад
+
+On the server nothing is built: `compose.prod.yaml` pulls the ready image from GHCR. `APP_TAG` picks the version. / На сървъра нищо не се строи: `compose.prod.yaml` тегли готовия образ от GHCR. `APP_TAG` избира версията.
+
+| `APP_TAG` | What runs / Какво върви |
+|---|---|
+| (empty) → `latest` | the latest merge to `main` / последното сливане в `main` |
+| `v0.6.0` | a named release from a git tag / именувана версия от git таг |
+| `<sha>` | exactly one commit, for a rollback / точно един commit, за връщане назад |
+
+```bash
+docker compose -f compose.prod.yaml pull
+docker compose -f compose.prod.yaml up -d
+curl http://127.0.0.1:8000/version                          # latest
+
+git tag v0.6.0 && git push origin v0.6.0                    # CI pushes :v0.6.0
+APP_TAG=v0.6.0 docker compose -f compose.prod.yaml up -d    # an exact version
+
+APP_TAG=<sha of an earlier commit> docker compose -f compose.prod.yaml up -d   # rollback
+```
+
+The notes survive a rollback: only the `app` container is replaced, while the data lives in the `db-data` volume. / Бележките оцеляват при връщане назад: сменя се само контейнерът `app`, а данните са във volume-а `db-data`.
+
+The `:<sha>` tags of earlier commits are under **Packages** on the repository page. / Таговете `:<sha>` на по-старите commit-и са в **Packages** на страницата на хранилището.
+
 ## Check that it works / Проверка, че работи
 
 ```bash
