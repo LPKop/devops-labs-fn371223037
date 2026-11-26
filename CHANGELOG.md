@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0
+
+- CI (`ci.yml`): ruff and pytest, PostgreSQL 17 as a service so the database tests really run, then the Docker image is built and smoke tested.
+- Every push to `main` and every `v*` tag pushes the image to GHCR as `:<sha>`, `:latest` and `:vX.Y.Z`. Pull requests push nothing.
+- Trivy scans the image before the push and stops the pipeline on a fixable CRITICAL vulnerability.
+- `compose.prod.yaml` pulls the image instead of building it. `APP_TAG` picks the version, which also makes rollbacks possible.
+- The documentation is published with MkDocs on GitHub Pages: https://lpkop.github.io/devops-labs-fn371223037/
+- Runbook: "Release and rollback".
+
 ## 0.4.0
 
 - Dockerfile: `python:3.12-slim`, cached pip layer, `.dockerignore`, non-root user and a healthcheck.
